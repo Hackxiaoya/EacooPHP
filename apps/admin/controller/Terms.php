@@ -82,9 +82,9 @@ class Terms extends Admin {
                 $data['seo_title']=$data['name'];
             }
             $data['taxonomy'] = $taxonomy;
-            $term_id          = isset($data['term_id']) && $data['term_id']>0 ? $data['term_id']:false;
+            $term_id = isset($data['term_id']) && $data['term_id']>0 ? $data['term_id']:false;
             //验证数据
-            $this->validateData($data,'Term');
+            $this->validateData($data,'admin/Term');
 
             $result = $this->termsModel->editData($data,$term_id,'term_id');
             if ($result) {
