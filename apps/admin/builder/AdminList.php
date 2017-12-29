@@ -296,7 +296,7 @@ class AdminList extends Builder
     /**
      * 加入一个数据列表右侧按钮
      * 在使用预置的几种按钮时，比如我想改变编辑按钮的名称
-     * 那么只需要$builder->addRightpButton('edit', array('title' => '换个马甲'))
+     * 那么只需要$builder->addRightButton('edit', array('title' => '换个马甲'))
      * 如果想改变地址甚至新增一个属性用上面类似的定义方法
      * 因为添加右侧按钮的时候你并没有办法知道数据ID，于是我们采用__data_id__作为约定的标记
      * __data_id__会在fetch方法里自动替换成数据的真实ID
@@ -419,6 +419,13 @@ class AdminList extends Builder
                 if (empty($my_attribute['title'])) {
                     $my_attribute['title'] = '该自定义按钮未配置属性';
                 }
+                if (empty($my_attribute['href'])){
+                  $my_attribute['href']  = url(
+                    MODULE_NAME.'/'.CONTROLLER_NAME.'/edit',
+                    array($this->_table_data_list_key => '__data_id__')
+                  );
+                }
+
                 
                 break;
         }
@@ -566,6 +573,9 @@ class AdminList extends Builder
                             case '2':
                                 $data[$column['name']] = '<span class="fa fa-eye-slash text-warning"></span>';
                                 break;
+                            case '3':
+                              $data[$column['name']] = '<span class="fa fa-cog fa-spin text-danger"></span>';
+                              break;
                         }
                         break;
                     case 'bool':
